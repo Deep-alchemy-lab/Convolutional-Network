@@ -1,1 +1,4 @@
 #Convolutional Layer
+# CONV LAYER = Realiza un cálculo del output de las neuronas que están conectadas en la red 
+a regiones locales en el input , cada una calcula un  punto entre sus pesos y una región pequeña a la que están 
+interconectados en el volumen del input. .
