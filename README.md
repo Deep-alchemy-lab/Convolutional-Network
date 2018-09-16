@@ -3,7 +3,7 @@ Convolutional network basic code (Explained)
 
 
 
-Table of content:
+Table of Content:
 
 1. Layers used to build a ConvNet
   1.1 Convolutional Layer.
