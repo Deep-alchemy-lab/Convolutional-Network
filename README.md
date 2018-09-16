@@ -8,4 +8,9 @@ Table of content:
 1. Layers used to build a ConvNet
   1.1 Convolutional Layer.
   1.2 Pooling Layer.
-  1.3 Fully-Connected Layer.
+  1.3 Normalization Layer.
+  
+2. Architecture
+
+3.
+
