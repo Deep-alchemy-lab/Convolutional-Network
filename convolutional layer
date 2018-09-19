@@ -2,3 +2,26 @@
 # CONV LAYER = Realiza un cálculo del output de las neuronas que están conectadas en la red 
 a regiones locales en el input , cada una calcula un  punto entre sus pesos y una región pequeña a la que están 
 interconectados en el volumen del input.                                  VOLUMEN = (X,Y,Z) X = Ancho Y= Alto Z= profundo(número de filtros)
+# CÓDIGO EJEMPLO EN KERAS 
+model = Sequential()
+model.add(Conv2D(32, kernel_size=(5, 5), strides=(1, 1),
+                 activation='relu',
+                 input_shape=input_shape))
+model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+model.add(Conv2D(64, (5, 5), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dense(1000, activation='relu'))
+model.add(Dense(num_classes, activation='softmax'))
+
+
+# Modelo secuencial =  Definición del modelo de la red neuronal permite que las capas se agreguen en secuencia lineal 
+# CONV2D = Procesamiento de imagenes tipo 2d 
+# 32 = Número de outputs 
+# Kernel size = Tamaño de la ventana que se desliza por las convulociones
+# Strides = Valores que definen la longitud de la convolucion ( 1,1) corresponde a eje X y Y 
+# filters = Número de filtros en los Outputs 
+# Relu = función de activiación por rectificación linear 
+# input shape = Tamaño del input para la capa
+# MAXPOOLING = Agrupación dirigida a la toma de valores altos en la matriz POOL SIZE = Tamaño de agrupación definido por x y y 
+#
