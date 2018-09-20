@@ -24,4 +24,8 @@ model.add(Dense(num_classes, activation='softmax'))
 # Relu = función de activiación por rectificación linear 
 # input shape = Tamaño del input para la capa
 # MAXPOOLING = Agrupación dirigida a la toma de valores altos en la matriz POOL SIZE = Tamaño de agrupación definido por x y y 
-#
+# Flatten = Comando para aplanar los outputs y poder introducir fully connected layers 
+# Dense = declaración de uso de fully connected layers 
+# 1000 = valor que simboliza el Número de nodos o tamaño de la capa
+# Num classes = Clasificador o tamaño de la capa Output
+# Softmax = funcion de clasificación 
