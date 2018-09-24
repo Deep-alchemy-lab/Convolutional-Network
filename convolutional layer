@@ -3,29 +3,48 @@
 a regiones locales en el input , cada una calcula un  punto entre sus pesos y una región pequeña a la que están 
 interconectados en el volumen del input.                                  VOLUMEN = (X,Y,Z) X = Ancho Y= Alto Z= profundo(número de filtros)
 # CÓDIGO EJEMPLO EN KERAS 
-model = Sequential()
-model.add(Conv2D(32, kernel_size=(5, 5), strides=(1, 1),
-                 activation='relu',
-                 input_shape=input_shape))
-model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-model.add(Conv2D(64, (5, 5), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Flatten())
-model.add(Dense(1000, activation='relu'))
-model.add(Dense(num_classes, activation='softmax'))
 
-
+from keras import layers
+from keras import models
+model = models.Sequential()
+model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 # Modelo secuencial =  Definición del modelo de la red neuronal permite que las capas se agreguen en secuencia lineal 
-# CONV2D = Procesamiento de imagenes tipo 2d 
-# 32 = Número de outputs 
+# CONV2D = Procesamiento de imagenes tipo 2d , 32 = Número de canales 64 = Numero de canales , ( 3,3 ) = WINDOW HEIGHT (X) , WINDOW WIDTH ( Y)
+# INPUT SHAPE 28 28 1 ( para la primera capa)  = FORMATO MINIMO PARA IMAGENES MNIST 
 # Kernel size = Tamaño de la ventana que se desliza por las convulociones
 # Strides = Valores que definen la longitud de la convolucion ( 1,1) corresponde a eje X y Y 
 # filters = Número de filtros en los Outputs 
 # Relu = función de activiación por rectificación linear 
-# input shape = Tamaño del input para la capa
 # MAXPOOLING = Agrupación dirigida a la toma de valores altos en la matriz POOL SIZE = Tamaño de agrupación definido por x y y 
-# Flatten = Comando para aplanar los outputs y poder introducir fully connected layers 
+
+# CLASIFICADOR 
+
+model.add(layers.Flatten())
+model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(10, activation='softmax'))
+
+# Flatten = Comando para aplanar los outputs y transformarlos en Vectores, Punto de partida para poder introducir fully connected layers 
 # Dense = declaración de uso de fully connected layers 
-# 1000 = valor que simboliza el Número de nodos o tamaño de la capa
-# Num classes = Clasificador o tamaño de la capa Output
-# Softmax = funcion de clasificación 
+# 10 = Clasificación por 10 vias para una capa final con 10 
+# Softmax = Función de activación
+
+# TEST IMAGENES MNIST 
+
+from keras.datasets import mnist
+from keras.utils import to_categorical
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+
+train_images = train_images.reshape((60000, 28, 28, 1))
+train_images = train_images.astype('float32') / 255
+test_images = test_images.reshape((10000, 28, 28, 1))
+test_images = test_images.astype('float32') / 255
+train_labels = to_categorical(train_labels)
+test_labels = to_categorical(test_labels)
+model.compile(optimizer='rmsprop',
+loss='categorical_crossentropy',
+metrics=['accuracy'])
+model.fit(train_images, train_labels, epochs=5, batch_size=64)
