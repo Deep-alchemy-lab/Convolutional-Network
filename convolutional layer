@@ -32,7 +32,7 @@ model.add(layers.Dense(10, activation='softmax'))
 # 10 = Clasificación por 10 vias para una capa final con 10 
 # Softmax = Función de activación
 
-# TEST IMAGENES MNIST 
+# ENTRENAMIENTO Y TESTEO DE  IMAGENES MNIST 
 
 from keras.datasets import mnist
 from keras.utils import to_categorical
@@ -48,3 +48,8 @@ model.compile(optimizer='rmsprop',
 loss='categorical_crossentropy',
 metrics=['accuracy'])
 model.fit(train_images, train_labels, epochs=5, batch_size=64)
+
+# EVALUAR EL MODELO
+
+>>> test_loss, test_acc = model.evaluate(test_images, test_labels)
+>>> test_acc
