@@ -1,47 +1,37 @@
-# Convolutional-network
-Convolutional network basic code (Explained)
+RED CONVULOCIONAL 
+
+1. IMPORT ( llamado de bibliotecas conexas) 
+2. MODELO ( SECUENCIAL = UNA CAPA DETRAS DE LA OTRA)
+3. LAYER ( INPUT SHAPE 3D ( H,W,C) - OUTPUT SHAPE ( H,W,C)
+4. CONV 2D ( PROCESAMIENTO DE IMÁGENES)
+5. POOLING ( AGRUPACIÓN DE VALORES)
+6. FUNCIÓN DE ACTIVACIÓN ( UNIDAD LINEA REACTIFICADA ) RELU 
+7. AÑADIR CLASIFICADOR ( FLATTEN ( aplanar o transformar a vector) DENSE ( TIPO DE CAPA ) SOFTMAX ( función de activación)
+8. ENTRENAMIENTO DE LA RED ( TRAIN AND TEST)
+9. EVALUAR EL MODEL ( TEST AND EVALUATE)
+10. OPTIMIZADOR ( PENDIENTE DE REUBICAR EN EL ESQUEMA) 
 
 
+CÓDIGO CLASIFICACIÓN BINARIA ( PERROS VS GATOS) 
 
-Table of Content:
-
-1. Layers used to build a ConvNet
-  1.1 Convolutional Layer.
-  1.2 Pooling Layer.
-  1.3 Normalization Layer.
-  
-2. Architecture
-
-3. LSTM https://towardsdatascience.com/using-lstms-to-forecast-time-series-4ab688386b1f
-
-# Preparación del DATA ( Normalizar los atributos)
-
-Scaler = MinMaxScaler( feature_range=(-1, 1) )
-Scaled= scaler.fit_transform(series.values)
-Series = pd.Dataframe(scaled)
-
-# Se recomienda tamaño de pantalla 50 , cambio de la columna valor positivo ( hacia abajo)o negativo( hacia arriba) de acuerdo a necesidad para concatenar el Data 
-
-window_size = 50
-
-series_s = series.copy()
-for i in range(window_size) :
-series = pd.concat([series, series_s.shift(-(i+1))], axis = 1
-
-series.dropna(axis=0, inplace=true)
-
-
-
-
-
-
-
-
-
-
-
-----------------------------------------------------------------------------------------------------------------------------------------
-1.1 Convolutional Layer
+# LLamando biblioteca Keras
+from keras import layers
+from keras import models
+# Definiendo Modelo ( secuencial lineal ) 
+model = models.Sequential()
+# Adición de capas , procesamiento de imágenes 
+model.add(layers.Conv2D(32, (3, 3), activation='relu',
+input_shape=(150, 150, 3)))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Flatten())
+model.add(layers.Dense(512, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
 
 
 
@@ -49,8 +39,6 @@ series.dropna(axis=0, inplace=true)
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------
-1.2 Pooling Layer
 
 
 
@@ -58,8 +46,7 @@ series.dropna(axis=0, inplace=true)
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------
-1.3 Normalization Layer
+
 
 
 
